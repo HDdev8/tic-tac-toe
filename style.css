@@ -1,0 +1,38 @@
+*::before,
+*,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+.grid {
+  max-height: 50vh;
+  max-width: 50vw;
+  display: grid;
+  margin: auto;
+  grid-template-columns: repeat(3, 12.5rem);
+  grid-template-rows: repeat(3, 12.5rem);
+  align-self: center;
+  justify-self: center;
+}
+
+.box {
+  background-color: white;
+  border-left: 0.0625rem solid black;
+  border-bottom: 0.0625rem solid black;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.box:nth-child(3n) {
+  border-right: 0.0625rem solid black;
+}
+
+.box:nth-child(-n + 3) {
+  border-top: 0.0625rem solid black;
+}
