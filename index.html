@@ -9,8 +9,23 @@
     <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" defer></script>
   </head>
-
   <body>
+    <header>Tic Tac Toe!</header>
+    <div class="form-div">
+      <form action="#" method="" class="form" id="form-1">
+        <div class="name-field">
+          <label for="p1-name">Player 1 Name</label>
+          <input type="text" id="p1-name" name="name" required />
+        </div>
+        <div class="name-field">
+          <label for="p2-name">Player 2 Name</label>
+          <input type="text" id="p2-name" name="name" required />
+        </div>
+        <div class="submit-field">
+          <button type="submit" name="create-players">Create Players</button>
+        </div>
+      </form>
+    </div>
     <div class="grid"></div>
   </body>
 </html>
