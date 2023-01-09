@@ -41,6 +41,20 @@ header {
   justify-content: center;
 }
 
+.hidden-overlay {
+  background-color: #00000079;
+  z-index: 5;
+  position: fixed;
+  opacity: 1;
+  visibility: visible;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-backdrop-filter: blur(0.425rem);
+  backdrop-filter: blur(0.425rem);
+}
+
 .box {
   background-color: white;
   border-left: 0.0625rem solid black;
@@ -48,6 +62,8 @@ header {
   display: grid;
   align-items: center;
   justify-items: center;
+  font-size: clamp(100%, 3rem + 4vw, 4rem);
+  z-index: 0;
 }
 
 .box:nth-child(3n) {

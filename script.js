@@ -14,8 +14,7 @@
 
 // const gameBoard = [x, o, x, o, x, o, x, o, x];
 // gameBoard[(0, 1, 2)];
-const gayme = (() => {
-  const playerArray = [];
+const game = (() => {
   const gameboard = (() => {
     const generateBoard = (() => {
       const grid = document.querySelector(".grid");
@@ -29,12 +28,33 @@ const gayme = (() => {
       }
       grid.appendChild(fragment);
     })();
-
+    const playerArray = [];
+    console.log(playerArray);
     const boxes = document.querySelectorAll(".box");
     const x = "x";
     const o = "o";
     const gameBoard = [x, o, x, o, x, o, x, o, x];
     const gameArray = [];
+    const createPlayerModule = (() => {
+      const Player = (name, mark) => {
+        name;
+        mark;
+        return {name, mark};
+      };
+      const submitNames = (() => {
+        const submit = document.querySelector(`button[type="submit"]`);
+        submit.addEventListener("click", (e) => {
+          e.preventDefault();
+          const firstPlayer = document.querySelector(`input[id="p1-name"]`);
+          const secondPlayer = document.querySelector(`input[id="p2-name"]`);
+          const player1 = Player(firstPlayer.value, "x");
+          const player2 = Player(secondPlayer.value, "o");
+          playerArray.push(player1);
+          playerArray.push(player2);
+          return {player1, player2};
+        });
+      })();
+    })();
     const boardActivity = (() => {
       boxes.forEach((box) => {
         box.addEventListener("click", (e) => {
@@ -67,15 +87,16 @@ const gayme = (() => {
     const playerOneWins = (() => {
       boxes.forEach((box) => {
         box.addEventListener("click", (e) => {
+          e.preventDefault();
           if (
-            (gameArray[0] && gameArray[1] && gameArray[2] === x) ||
-            (gameArray[3] && gameArray[4] && gameArray[5] === x) ||
-            (gameArray[6] && gameArray[7] && gameArray[8] === x) ||
-            (gameArray[0] && gameArray[3] && gameArray[6] === x) ||
-            (gameArray[1] && gameArray[4] && gameArray[7] === x) ||
-            (gameArray[2] && gameArray[5] && gameArray[8] === x) ||
-            (gameArray[0] && gameArray[6] && gameArray[8] === x) ||
-            (gameArray[2] && gameArray[4] && gameArray[6] === x)
+            (gameArray[0] === x && gameArray[1] === x && gameArray[2] === x) ||
+            (gameArray[3] === x && gameArray[4] === x && gameArray[5] === x) ||
+            (gameArray[6] === x && gameArray[7] === x && gameArray[8] === x) ||
+            (gameArray[0] === x && gameArray[3] === x && gameArray[6] === x) ||
+            (gameArray[1] === x && gameArray[4] === x && gameArray[7] === x) ||
+            (gameArray[2] === x && gameArray[5] === x && gameArray[8] === x) ||
+            (gameArray[0] === x && gameArray[4] === x && gameArray[8] === x) ||
+            (gameArray[2] === x && gameArray[4] === x && gameArray[6] === x)
           ) {
             console.log(`${playerArray[0].name} is the winner!`);
           }
@@ -86,39 +107,18 @@ const gayme = (() => {
       boxes.forEach((box) => {
         box.addEventListener("click", (e) => {
           if (
-            (gameArray[0] && gameArray[1] && gameArray[2] === o) ||
-            (gameArray[3] && gameArray[4] && gameArray[5] === o) ||
-            (gameArray[6] && gameArray[7] && gameArray[8] === o) ||
-            (gameArray[0] && gameArray[3] && gameArray[6] === o) ||
-            (gameArray[1] && gameArray[4] && gameArray[7] === o) ||
-            (gameArray[2] && gameArray[5] && gameArray[8] === o) ||
-            (gameArray[0] && gameArray[6] && gameArray[8] === o) ||
-            (gameArray[2] && gameArray[4] && gameArray[6] === o)
+            (gameArray[0] === o && gameArray[1] === o && gameArray[2] === o) ||
+            (gameArray[3] === o && gameArray[4] === o && gameArray[5] === o) ||
+            (gameArray[6] === o && gameArray[7] === o && gameArray[8] === o) ||
+            (gameArray[0] === o && gameArray[3] === o && gameArray[6] === o) ||
+            (gameArray[1] === o && gameArray[4] === o && gameArray[7] === o) ||
+            (gameArray[2] === o && gameArray[5] === o && gameArray[8] === o) ||
+            (gameArray[0] === o && gameArray[4] === o && gameArray[8] === o) ||
+            (gameArray[2] === o && gameArray[4] === o && gameArray[6] === o)
           ) {
             console.log(`${playerArray[1].name} is the winner!`);
           }
         });
-      });
-    })();
-  })();
-
-  const createPlayerModule = (() => {
-    const Player = (name, mark) => {
-      name;
-      mark;
-      return {name, mark};
-    };
-    const submitNames = (() => {
-      const submit = document.querySelector(`button[type="submit"]`);
-      submit.addEventListener("click", (e) => {
-        e.preventDefault();
-        const firstPlayer = document.querySelector(`input[id="p1-name"]`);
-        const secondPlayer = document.querySelector(`input[id="p2-name"]`);
-        const player1 = Player(firstPlayer.value, "x");
-        const player2 = Player(secondPlayer.value, "o");
-        playerArray.push(player1);
-        playerArray.push(player2);
-        return {player1, player2};
       });
     })();
   })();
