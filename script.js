@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable init-declarations */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
@@ -11,121 +13,170 @@
  */
 // Player: Controller; Game: Model; Gameboard: View?
 // Where does displayController fit in?
-
-// const gameBoard = [x, o, x, o, x, o, x, o, x];
-// gameBoard[(0, 1, 2)];
 const game = (() => {
-  const gameboard = (() => {
-    const generateBoard = (() => {
-      const grid = document.querySelector(".grid");
-      const fragment = new DocumentFragment();
-      const numberOfBoxes = 9;
-      for (let i = 0; i < numberOfBoxes; i++) {
-        const box = document.createElement("div");
-        box.classList.add("box");
-        box.setAttribute("id", `box${i + 1}`);
-        fragment.appendChild(box);
-      }
-      grid.appendChild(fragment);
-    })();
-    const playerArray = [];
-    console.log(playerArray);
-    const boxes = document.querySelectorAll(".box");
-    const x = "x";
-    const o = "o";
-    const gameBoard = [x, o, x, o, x, o, x, o, x];
-    const gameArray = [];
-    const createPlayerModule = (() => {
-      const Player = (name, mark) => {
-        name;
-        mark;
-        return {name, mark};
-      };
-      const submitNames = (() => {
-        const submit = document.querySelector(`button[type="submit"]`);
-        submit.addEventListener("click", (e) => {
-          e.preventDefault();
-          const firstPlayer = document.querySelector(`input[id="p1-name"]`);
-          const secondPlayer = document.querySelector(`input[id="p2-name"]`);
-          const player1 = Player(firstPlayer.value, "x");
-          const player2 = Player(secondPlayer.value, "o");
-          playerArray.push(player1);
-          playerArray.push(player2);
-          return {player1, player2};
-        });
-      })();
-    })();
-    const boardActivity = (() => {
-      boxes.forEach((box) => {
-        box.addEventListener("click", (e) => {
-          if (e.target.textContent === "") {
-            e.target.textContent = gameBoard.pop();
-            const box1 = document.querySelector("#box1");
-            const box2 = document.querySelector("#box2");
-            const box3 = document.querySelector("#box3");
-            const box4 = document.querySelector("#box4");
-            const box5 = document.querySelector("#box5");
-            const box6 = document.querySelector("#box6");
-            const box7 = document.querySelector("#box7");
-            const box8 = document.querySelector("#box8");
-            const box9 = document.querySelector("#box9");
-            gameArray.splice(0, 0, box1.textContent);
-            gameArray.splice(1, 0, box2.textContent);
-            gameArray.splice(2, 0, box3.textContent);
-            gameArray.splice(3, 0, box4.textContent);
-            gameArray.splice(4, 0, box5.textContent);
-            gameArray.splice(5, 0, box6.textContent);
-            gameArray.splice(6, 0, box7.textContent);
-            gameArray.splice(7, 0, box8.textContent);
-            gameArray.splice(8, 0, box9.textContent);
-            gameArray.splice(9);
-            console.log(gameArray);
-          }
-        });
-      });
-    })();
-    const playerOneWins = (() => {
-      boxes.forEach((box) => {
-        box.addEventListener("click", (e) => {
-          e.preventDefault();
-          if (
-            (gameArray[0] === x && gameArray[1] === x && gameArray[2] === x) ||
-            (gameArray[3] === x && gameArray[4] === x && gameArray[5] === x) ||
-            (gameArray[6] === x && gameArray[7] === x && gameArray[8] === x) ||
-            (gameArray[0] === x && gameArray[3] === x && gameArray[6] === x) ||
-            (gameArray[1] === x && gameArray[4] === x && gameArray[7] === x) ||
-            (gameArray[2] === x && gameArray[5] === x && gameArray[8] === x) ||
-            (gameArray[0] === x && gameArray[4] === x && gameArray[8] === x) ||
-            (gameArray[2] === x && gameArray[4] === x && gameArray[6] === x)
-          ) {
-            console.log(`${playerArray[0].name} is the winner!`);
-          }
-        });
-      });
-    })();
-    const playerTwoWins = (() => {
-      boxes.forEach((box) => {
-        box.addEventListener("click", (e) => {
-          if (
-            (gameArray[0] === o && gameArray[1] === o && gameArray[2] === o) ||
-            (gameArray[3] === o && gameArray[4] === o && gameArray[5] === o) ||
-            (gameArray[6] === o && gameArray[7] === o && gameArray[8] === o) ||
-            (gameArray[0] === o && gameArray[3] === o && gameArray[6] === o) ||
-            (gameArray[1] === o && gameArray[4] === o && gameArray[7] === o) ||
-            (gameArray[2] === o && gameArray[5] === o && gameArray[8] === o) ||
-            (gameArray[0] === o && gameArray[4] === o && gameArray[8] === o) ||
-            (gameArray[2] === o && gameArray[4] === o && gameArray[6] === o)
-          ) {
-            console.log(`${playerArray[1].name} is the winner!`);
-          }
-        });
-      });
-    })();
-  })();
-})();
+  const x = "x";
+  const o = "o";
+  let gameBoard = [x, o, x, o, x, o, x, o, x];
+  let gameArray = [];
+  let playerArray = [];
+  const boxes = document.querySelectorAll(".box");
 
-/*
- **allow players to put in their names
- *a button to start/restart the game
- **a display element that congratulates the winning player!
- */
+  const submit = document.querySelector(`button[type="submit"]`);
+  const replay = document.querySelector(`button[name="replay"]`);
+  const nameField1 = document.querySelector(`input[id="p1-name"]`);
+  const nameField2 = document.querySelector(`input[id="p2-name"]`);
+  const player1Display = document.querySelector("#pn1");
+  const player2Display = document.querySelector("#pn2");
+
+  const createPlayers = (() => {
+    const Player = (name, mark) => {
+      const players = [];
+      const getName = () => name;
+      const getMark = () => name;
+      return {name, mark, getName, getMark};
+    };
+    submit.addEventListener("click", (e) => {
+      e.preventDefault();
+      const player1 = Player(nameField1.value, "x");
+      const player2 = Player(nameField2.value, "o");
+      playerArray.push([player1.name]);
+      playerArray.push([player2.name]);
+      player1Display.textContent = nameField1.value;
+      player2Display.textContent = nameField2.value;
+      nameField1.disabled = true;
+      nameField2.disabled = true;
+    });
+  })();
+
+  const setBoxID = (() => {
+    const numberOfBoxes = 9;
+    for (let i = 0; i < numberOfBoxes; i++) {
+      boxes[i].setAttribute("id", `box${i + 1}`);
+    }
+  })();
+
+  const addMarks = (() => {
+    boxes.forEach((box) => {
+      box.addEventListener("click", (e) => {
+        if (e.target.textContent === "") {
+          e.target.textContent = gameBoard.pop();
+        }
+      });
+    });
+  })();
+
+  boxes.forEach((bx) => {
+    bx.addEventListener("click", (e) => {
+      const box1 = document.querySelector("#box1").textContent;
+      const box2 = document.querySelector("#box2").textContent;
+      const box3 = document.querySelector("#box3").textContent;
+      const box4 = document.querySelector("#box4").textContent;
+      const box5 = document.querySelector("#box5").textContent;
+      const box6 = document.querySelector("#box6").textContent;
+      const box7 = document.querySelector("#box7").textContent;
+      const box8 = document.querySelector("#box8").textContent;
+      const box9 = document.querySelector("#box9").textContent;
+      const toGameArray = (() => {
+        gameArray.splice(0, 0, box1);
+        gameArray.splice(1, 0, box2);
+        gameArray.splice(2, 0, box3);
+        gameArray.splice(3, 0, box4);
+        gameArray.splice(4, 0, box5);
+        gameArray.splice(5, 0, box6);
+        gameArray.splice(6, 0, box7);
+        gameArray.splice(7, 0, box8);
+        gameArray.splice(8, 0, box9);
+        gameArray.splice(9);
+        console.log(gameArray);
+      })();
+      const findWinner = (() => {
+        const modal = document.querySelector(".modal");
+        const trigger = document.querySelector(".trigger");
+        const closeButton = document.querySelector(".close-button");
+        const modalContent = document.querySelector(".modal-content > h1");
+
+        function toggleModal() {
+          modal.classList.toggle("show-modal");
+        }
+
+        function windowOnClick(event) {
+          if (event.target === modal) {
+            toggleModal();
+          }
+        }
+
+        closeButton.addEventListener("click", toggleModal);
+        window.addEventListener("click", windowOnClick);
+        const grid = document.querySelector(".grid");
+        if (
+          (box1 === "x" && box2 === "x" && box3 === "x") ||
+          (box4 === "x" && box5 === "x" && box6 === "x") ||
+          (box7 === "x" && box8 === "x" && box9 === "x") ||
+          (box1 === "x" && box4 === "x" && box7 === "x") ||
+          (box2 === "x" && box5 === "x" && box8 === "x") ||
+          (box3 === "x" && box6 === "x" && box9 === "x") ||
+          (box1 === "x" && box5 === "x" && box9 === "x") ||
+          (box3 === "x" && box5 === "x" && box7 === "x")
+        ) {
+          if (playerArray[0]) {
+            modalContent.textContent = `${playerArray[0]} Wins!`;
+            toggleModal();
+          } else if (!playerArray[0]) {
+            modalContent.textContent = `Player 1 Wins!`;
+            toggleModal();
+          }
+        } else if (
+          (box1 === "o" && box2 === "o" && box3 === "o") ||
+          (box4 === "o" && box5 === "o" && box6 === "o") ||
+          (box7 === "o" && box8 === "o" && box9 === "o") ||
+          (box1 === "o" && box4 === "o" && box7 === "o") ||
+          (box2 === "o" && box5 === "o" && box8 === "o") ||
+          (box3 === "o" && box6 === "o" && box9 === "o") ||
+          (box1 === "o" && box5 === "o" && box9 === "o") ||
+          (box3 === "o" && box5 === "o" && box7 === "o")
+        ) {
+          if (playerArray[1]) {
+            modalContent.textContent = `${playerArray[1]} Wins!`;
+            toggleModal();
+          } else if (!playerArray[1]) {
+            modalContent.textContent = `Player 2 Wins!`;
+            toggleModal();
+          }
+        }
+      })();
+    });
+  });
+  replay.addEventListener("click", (e) => {
+    const clearIt = (() => {
+      const gridChildren = document.querySelector(".grid").childNodes;
+      const modal = document.querySelector(".modal");
+      const trigger = document.querySelector(".trigger");
+      const closeButton = document.querySelector(".close-button");
+      const modalContent = document.querySelector(".modal-content > h1");
+      for (let i = 0; i < gridChildren.length; i++) {
+        if (gridChildren[i].textContent !== "") {
+          gridChildren[i].textContent = "";
+        }
+      }
+      gameArray;
+      playerArray;
+      nameField1.value = "";
+      nameField2.value = "";
+      player1Display.textContent = "Player 1";
+      player2Display.textContent = "Player 2";
+      nameField1.disabled = false;
+      nameField2.disabled = false;
+      gameBoard = [x, o, x, o, x, o, x, o, x];
+      function toggleModal() {
+        modal.classList.toggle("show-modal");
+      }
+      function windowOnClick() {
+        if (e.target === modal) {
+          toggleModal();
+        }
+      }
+      closeButton.addEventListener("click", toggleModal);
+      window.addEventListener("click", windowOnClick);
+    })();
+  });
+})();

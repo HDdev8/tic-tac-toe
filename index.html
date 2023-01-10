@@ -12,6 +12,14 @@
   <body>
     <header>Tic Tac Toe!</header>
     <div class="form-div">
+      <div class="player-box" id="pbox1">
+        <p class="player-name" id="pn1">Player 1</p>
+        <p class="marker" id="pm1">X</p>
+      </div>
+      <div class="player-box" id="pbox2">
+        <p class="player-name" id="pn2">Player 2</p>
+        <p class="marker" id="pm2">O</p>
+      </div>
       <form action="#" method="" class="form" id="form-1">
         <div class="name-field">
           <label for="p1-name">Player 1 Name</label>
@@ -23,9 +31,27 @@
         </div>
         <div class="submit-field">
           <button type="submit" name="create-players">Create Players</button>
+          <button type="button" name="replay">Replay!</button>
         </div>
       </form>
+      <!-- <button type="button" name="replay">Replay!</button> -->
     </div>
-    <div class="grid"></div>
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h1></h1>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+    </div>
   </body>
 </html>
