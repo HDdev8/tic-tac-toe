@@ -12,7 +12,7 @@ body {
 
 header {
   padding: 1rem;
-  font-size: clamp(100%, 1.75rem + 4vw, 2rem);
+  font-size: clamp(100%, 2rem + 4vw, 2.5rem);
   display: grid;
   justify-content: center;
 }
@@ -32,6 +32,7 @@ header {
 #pbox1 {
   grid-column: 1;
   grid-row: 1;
+  font-size: 1.75rem;
   width: 10rem;
   justify-items: center;
   justify-content: center;
@@ -41,6 +42,7 @@ header {
   grid-column: 3;
   grid-row: 1;
   width: 10rem;
+  font-size: 1.75rem;
   justify-items: center;
   justify-content: center;
 }
@@ -82,6 +84,11 @@ form {
   justify-items: center;
   font-size: clamp(100%, 3rem + 4vw, 4rem);
   z-index: 0;
+  transition: all 500ms;
+}
+
+.box:hover {
+  font-size: clamp(100%, 4rem + 5vw, 5rem);
 }
 
 .box:nth-child(3n) {

@@ -51,8 +51,23 @@ const game = (() => {
       e.target.textContent = gameboardArray.pop();
     }
   };
+
+  const styleMarks = () => {
+    const boxArray = Array.from(boxes);
+    for (let box of boxArray) {
+      if (box.textContent === "x") {
+        box.style.color = "#991b1b";
+      } else if (box.textContent === "o") {
+        box.style.color = "#0369a1";
+      }
+    }
+  };
+
   boxes.forEach((box) => {
-    box.addEventListener("click", addMarks);
+    box.addEventListener("click", (e) => {
+      addMarks(e);
+      styleMarks();
+    });
   });
 
   boxes.forEach((bx) => {
