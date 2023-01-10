@@ -5,22 +5,14 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-/*
- *store the gameboardArray as an array inside of a gameboardArray object
- *probably going to want an object to control the flow of the game itself.
- *IF YOU ONLY EVER NEED ONE OF SOMETHING (gameboardArray, DISPLAYCONTROLLER), USE A MODULE.
- *Think carefully about where each bit of logic should reside. Each little piece of functionality should be able to fit in the game, player or gameboardArray objects
- */
-// Player: Controller; Game: Model; gameboardArray: View?
-// Where does displayController fit in?
+
 const game = (() => {
   const x = "x";
   const o = "o";
+  const boxes = document.querySelectorAll(".box");
   let gameboardArray = [x, o, x, o, x, o, x, o, x];
   let gameArray = [];
   let playerArray = [];
-  const boxes = document.querySelectorAll(".box");
-
   const submit = document.querySelector(`button[type="submit"]`);
   const replay = document.querySelector(`button[name="replay"]`);
   const nameField1 = document.querySelector(`input[id="p1-name"]`);
@@ -54,24 +46,24 @@ const game = (() => {
     }
   })();
 
-  const addMarks = (() => {
-    boxes.forEach((box) => {
-      box.addEventListener("click", (e) => {
-        if (e.target.textContent === "") {
-          e.target.textContent = gameboardArray.pop();
-        }
-      });
-    });
-  })();
+  const addMarks = (e) => {
+    if (e.target.textContent === "") {
+      e.target.textContent = gameboardArray.pop();
+    }
+  };
+  boxes.forEach((box) => {
+    box.addEventListener("click", addMarks);
+  });
 
-  // const boxes = document.querySelectorAll(".box");
   boxes.forEach((bx) => {
     bx.addEventListener("click", (e) => {
-      const nodes = [...boxes];
-      for (let i = 0; i < nodes.length; i++) {
-        gameArray.splice(i, 0, nodes[i].textContent);
-        gameArray.splice(9);
-      }
+      const recordMarks = () => {
+        const nodes = [...boxes];
+        for (let i = 0; i < nodes.length; i++) {
+          gameArray.splice(i, 0, nodes[i].textContent);
+          gameArray.splice(9);
+        }
+      };
 
       const firstRow = Array.from(
         document.querySelectorAll(`.box:nth-child(-n+3)`)
@@ -95,7 +87,7 @@ const game = (() => {
         document.querySelectorAll(`.box:nth-child(4n+1)`)
       );
       const secondDiagonal = Array.from(
-        document.querySelectorAll(`.box:nth-child(2n+3):not(last-child)`)
+        document.querySelectorAll(`.box:nth-child(2n+3):nth-child(-n+7)`)
       );
 
       const findWinner = (() => {
@@ -164,14 +156,15 @@ const game = (() => {
           gridChildren[i].textContent = "";
         }
       }
-      gameArray;
-      playerArray;
+      gameArray = [];
+      playerArray = [];
       nameField1.value = "";
       nameField2.value = "";
       player1Display.textContent = "Player 1";
       player2Display.textContent = "Player 2";
       nameField1.disabled = false;
       nameField2.disabled = false;
+      modalContent.textContent;
       gameboardArray = [x, o, x, o, x, o, x, o, x];
       const toggleModal = () => {
         modal.classList.toggle("show-modal");
