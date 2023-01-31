@@ -1,11 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable init-declarations */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-
 const game = (() => {
   const x = "x";
   const o = "o";
